@@ -6,163 +6,112 @@
 <title>EV vs Fuel Savings Calculator</title>
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f7fa;
-    margin: 0;
-    padding: 20px;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-.container {
-    max-width: 700px;
-    margin: auto;
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0,0,0,.1);
+body{
+    font-family:Arial, sans-serif;
+    background:#f4f6f9;
+    padding:20px;
 }
 
-h1 {
-    text-align: center;
-    color: #1f2937;
+.container{
+    max-width:700px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
 
-.form-group {
-    margin-bottom: 15px;
+h1{
+    text-align:center;
+    margin-bottom:20px;
+    color:#1f2937;
 }
 
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
+.language-select{
+    text-align:right;
+    margin-bottom:20px;
 }
 
-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-sizing: border-box;
+select{
+    padding:8px;
+    border-radius:8px;
+    border:1px solid #ccc;
 }
 
-button {
-    width: 100%;
-    padding: 14px;
-    background: #16a34a;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    cursor: pointer;
+.form-group{
+    margin-bottom:15px;
 }
 
-button:hover {
-    background: #15803d;
+label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+    color:#333;
 }
 
-.results {
-    margin-top: 25px;
-    padding: 20px;
-    background: #eef8f0;
-    border-radius: 10px;
-    display: none;
+input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
 }
 
-.result-item {
-    margin: 10px 0;
-    font-size: 18px;
+button{
+    width:100%;
+    padding:14px;
+    background:#16a34a;
+    color:white;
+    font-size:18px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
 }
 
-.savings {
-    color: #16a34a;
-    font-weight: bold;
-    font-size: 24px;
+button:hover{
+    background:#15803d;
+}
+
+.results{
+    display:none;
+    margin-top:25px;
+    background:#eefaf0;
+    padding:20px;
+    border-radius:12px;
+}
+
+.result-item{
+    margin-bottom:10px;
+    font-size:18px;
+}
+
+.savings{
+    font-size:24px;
+    color:#16a34a;
+    font-weight:bold;
+    margin-top:15px;
 }
 </style>
 </head>
-
 <body>
 
 <div class="container">
-    <h1>⚡ EV vs Fuel Savings Calculator</h1>
 
-    <div class="form-group">
-        <label>Monthly Distance (km)</label>
-        <input type="number" id="distance" value="1500">
-    </div>
-
-    <div class="form-group">
-        <label>Fuel Consumption (L/100km)</label>
-        <input type="number" step="0.1" id="fuelConsumption" value="6">
-    </div>
-
-    <div class="form-group">
-        <label>Fuel Price (€ / L)</label>
-        <input type="number" step="0.01" id="fuelPrice" value="1.91">
-    </div>
-
-    <div class="form-group">
-        <label>EV Consumption (kWh / 100km)</label>
-        <input type="number" step="0.1" id="evConsumption" value="15">
-    </div>
-
-    <div class="form-group">
-        <label>Electricity Price (€ / kWh)</label>
-        <input type="number" step="0.01" id="electricityPrice" value="0.15">
-    </div>
-
-    <button onclick="calculateSavings()">Calculate Savings</button>
-
-    <div class="results" id="results">
-        <div class="result-item" id="fuelMonthly"></div>
-        <div class="result-item" id="evMonthly"></div>
-        <div class="result-item" id="fuelYearly"></div>
-        <div class="result-item" id="evYearly"></div>
-        <div class="result-item savings" id="yearlySavings"></div>
-    </div>
+<div class="language-select">
+    <select id="language" onchange="changeLanguage()">
+        <option value="en">🇬🇧 English</option>
+        <option value="hr">🇭🇷 Hrvatski</option>
+    </select>
 </div>
 
-<script>
-function calculateSavings() {
+<h1 id="title">EV vs Fuel Savings Calculator</h1>
 
-    const distance = parseFloat(document.getElementById('distance').value);
-    const fuelConsumption = parseFloat(document.getElementById('fuelConsumption').value);
-    const fuelPrice = parseFloat(document.getElementById('fuelPrice').value);
-    const evConsumption = parseFloat(document.getElementById('evConsumption').value);
-    const electricityPrice = parseFloat(document.getElementById('electricityPrice').value);
-
-    const fuelMonthlyCost =
-        (distance / 100) * fuelConsumption * fuelPrice;
-
-    const evMonthlyCost =
-        (distance / 100) * evConsumption * electricityPrice;
-
-    const fuelYearlyCost = fuelMonthlyCost * 12;
-    const evYearlyCost = evMonthlyCost * 12;
-
-    const yearlySavings =
-        fuelYearlyCost - evYearlyCost;
-
-    document.getElementById('fuelMonthly').innerHTML =
-        `⛽ Monthly Fuel Cost: <strong>€${fuelMonthlyCost.toFixed(2)}</strong>`;
-
-    document.getElementById('evMonthly').innerHTML =
-        `⚡ Monthly EV Cost: <strong>€${evMonthlyCost.toFixed(2)}</strong>`;
-
-    document.getElementById('fuelYearly').innerHTML =
-        `⛽ Yearly Fuel Cost: <strong>€${fuelYearlyCost.toFixed(2)}</strong>`;
-
-    document.getElementById('evYearly').innerHTML =
-        `⚡ Yearly EV Cost: <strong>€${evYearlyCost.toFixed(2)}</strong>`;
-
-    document.getElementById('yearlySavings').innerHTML =
-        `💰 Estimated Yearly Savings: €${yearlySavings.toFixed(2)}<br>
-         💰 Estimated Monthly Savings: €${yearlySavings.toFixed(2)/12}`;
-
-
-    document.getElementById('results').style.display = 'block';
-}
-</script>
-
-</body>
-</html>
+<div class="form-group">
+    <label id="distanceLabel">Monthly Distance (km)</label>
+    <input type="number" id="distance" value="150
