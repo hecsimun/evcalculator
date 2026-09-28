@@ -1,17 +1,13 @@
-
-
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
- 
 <head>
-<link rel="manifest.json">
+
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#16a34a">
- 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
+
 <title>EV vs Fuel Savings Calculator</title>
-</head>
 
 <style>
 *{
@@ -19,12 +15,17 @@
     margin:0;
     padding:0;
 }
+</style>
+
+</head>
+<body>
+
 <script>
 if ('serviceWorker' in navigator) {
 navigator.serviceWorker.register('./service-worker.js');
 }
 </script>
-body{
+<body{
     font-family:Arial, sans-serif;
     background:#f4f6f9;
     padding:20px;
