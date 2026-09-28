@@ -114,4 +114,158 @@ button:hover{
 
 <div class="form-group">
     <label id="distanceLabel">Monthly Distance (km)</label>
-    <input type="number" id="distance" value="150
+    <input type="number" id="distance" value="1500">
+</div>
+
+<div class="form-group">
+    <label id="fuelConsumptionLabel">Fuel Consumption (L/100km)</label>
+    <input type="number" id="fuelConsumption" value="6">
+</div>
+
+<div class="form-group">
+    <label id="fuelPriceLabel">Fuel Price (€ / L)</label>
+    <input type="number" id="fuelPrice" value="1.91" step="0.01">
+</div>
+
+<div class="form-group">
+    <label id="evConsumptionLabel">EV Consumption (kWh/100km)</label>
+    <input type="number" id="evConsumption" value="15">
+</div>
+
+<div class="form-group">
+    <label id="electricityPriceLabel">Electricity Price (€ / kWh)</label>
+    <input type="number" id="electricityPrice" value="0.15" step="0.01">
+</div>
+
+<button id="calculateBtn" onclick="calculateSavings()">
+    Calculate Savings
+</button>
+
+<div class="results" id="results">
+    <div class="result-item" id="fuelMonthly"></div>
+    <div class="result-item" id="evMonthly"></div>
+    <div class="result-item" id="fuelYearly"></div>
+    <div class="result-item" id="evYearly"></div>
+    <div class="result-item savings" id="yearlySavings"></div>
+</div>
+
+</div>
+
+<script>
+
+const translations = {
+
+en: {
+title: "EV vs Fuel Savings Calculator",
+distance: "Monthly Distance (km)",
+fuelConsumption: "Fuel Consumption (L/100km)",
+fuelPrice: "Fuel Price (€ / L)",
+evConsumption: "EV Consumption (kWh/100km)",
+electricityPrice: "Electricity Price (€ / kWh)",
+calculate: "Calculate Savings",
+monthlyFuel: "Monthly Fuel Cost",
+monthlyEV: "Monthly EV Cost",
+yearlyFuel: "Yearly Fuel Cost",
+yearlyEV: "Yearly EV Cost",
+savings: "Estimated Yearly Savings"
+},
+
+hr: {
+title: "Kalkulator Uštede Električnog Vozila",
+distance: "Mjesečna kilometraža (km)",
+fuelConsumption: "Potrošnja goriva (L/100km)",
+fuelPrice: "Cijena goriva (€ / L)",
+evConsumption: "Potrošnja EV-a (kWh/100km)",
+electricityPrice: "Cijena struje (€ / kWh)",
+calculate: "Izračunaj uštedu",
+monthlyFuel: "Mjesečni trošak goriva",
+monthlyEV: "Mjesečni trošak struje",
+yearlyFuel: "Godišnji trošak goriva",
+yearlyEV: "Godišnji trošak struje",
+savings: "Procijenjena godišnja ušteda"
+}
+
+};
+
+function changeLanguage() {
+
+const lang = document.getElementById("language").value;
+
+document.getElementById("title").textContent =
+translations[lang].title;
+
+document.getElementById("distanceLabel").textContent =
+translations[lang].distance;
+
+document.getElementById("fuelConsumptionLabel").textContent =
+translations[lang].fuelConsumption;
+
+document.getElementById("fuelPriceLabel").textContent =
+translations[lang].fuelPrice;
+
+document.getElementById("evConsumptionLabel").textContent =
+translations[lang].evConsumption;
+
+document.getElementById("electricityPriceLabel").textContent =
+translations[lang].electricityPrice;
+
+document.getElementById("calculateBtn").textContent =
+translations[lang].calculate;
+}
+
+function calculateSavings() {
+
+const lang = document.getElementById("language").value;
+
+const distance =
+parseFloat(document.getElementById("distance").value);
+
+const fuelConsumption =
+parseFloat(document.getElementById("fuelConsumption").value);
+
+const fuelPrice =
+parseFloat(document.getElementById("fuelPrice").value);
+
+const evConsumption =
+parseFloat(document.getElementById("evConsumption").value);
+
+const electricityPrice =
+parseFloat(document.getElementById("electricityPrice").value);
+
+const fuelMonthlyCost =
+(distance / 100) * fuelConsumption * fuelPrice;
+
+const evMonthlyCost =
+(distance / 100) * evConsumption * electricityPrice;
+
+const fuelYearlyCost =
+fuelMonthlyCost * 12;
+
+const evYearlyCost =
+evMonthlyCost * 12;
+
+const yearlySavings =
+fuelYearlyCost - evYearlyCost;
+
+document.getElementById("fuelMonthly").innerHTML =
+`⛽ ${translations[lang].monthlyFuel}: <strong>€${fuelMonthlyCost.toFixed(2)}</strong>`;
+
+document.getElementById("evMonthly").innerHTML =
+`⚡ ${translations[lang].monthlyEV}: <strong>€${evMonthlyCost.toFixed(2)}</strong>`;
+
+document.getElementById("fuelYearly").innerHTML =
+`⛽ ${translations[lang].yearlyFuel}: <strong>€${fuelYearlyCost.toFixed(2)}</strong>`;
+
+document.getElementById("evYearly").innerHTML =
+`⚡ ${translations[lang].yearlyEV}: <strong>€${evYearlyCost.toFixed(2)}</strong>`;
+
+document.getElementById("yearlySavings").innerHTML =
+`💰 ${translations[lang].savings}: €${yearlySavings.toFixed(2)}`;
+
+document.getElementById("results").style.display = "block";
+}
+
+</script>
+
+</body>
+</html>
