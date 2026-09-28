@@ -2,12 +2,14 @@
   "id": "/",
   "name": "EV vs Fuel Savings Calculator",
   "short_name": "EVCalc",
+  "description": "Compare EV and fuel costs and calculate savings.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#16a34a",
+  "categories": ["finance", "utilities", "productivity"],
   "icons": [
     {
       "src": "/icon-192.png",
