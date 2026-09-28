@@ -1,4 +1,4 @@
-const CACHE_NAME = "evcalc-v1";
+const CACHE_NAME = "evcalc-v2";
 
 self.addEventListener("install", event => {
   event.waitUntil(
