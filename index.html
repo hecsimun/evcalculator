@@ -11,7 +11,11 @@
     margin:0;
     padding:0;
 }
-
+<script>
+if ('serviceWorker' in navigator) {
+navigator.serviceWorker.register('./service-worker.js');
+}
+</script>
 body{
     font-family:Arial, sans-serif;
     background:#f4f6f9;
